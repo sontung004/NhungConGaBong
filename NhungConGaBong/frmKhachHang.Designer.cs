@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmKhachHang));
             tbcKhachHang = new TabControl();
             tbpThemKH = new TabPage();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -54,6 +55,7 @@
             label4 = new Label();
             btnSua = new Button();
             panel1 = new Panel();
+            btnThemNH = new Button();
             txtSoTK = new TextBox();
             cboNH = new ComboBox();
             label3 = new Label();
@@ -354,6 +356,7 @@
             // 
             // btnSua
             // 
+            btnSua.ImageAlign = ContentAlignment.MiddleLeft;
             btnSua.Location = new Point(11, 339);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(183, 29);
@@ -364,6 +367,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnThemNH);
             panel1.Controls.Add(txtSoTK);
             panel1.Controls.Add(cboNH);
             panel1.Controls.Add(label3);
@@ -376,6 +380,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(374, 146);
             panel1.TabIndex = 21;
+            // 
+            // btnThemNH
+            // 
+            btnThemNH.Image = (Image)resources.GetObject("btnThemNH.Image");
+            btnThemNH.Location = new Point(322, 105);
+            btnThemNH.Name = "btnThemNH";
+            btnThemNH.Size = new Size(41, 29);
+            btnThemNH.TabIndex = 11;
+            btnThemNH.UseVisualStyleBackColor = true;
+            btnThemNH.Click += btnThemNH_Click;
             // 
             // txtSoTK
             // 
@@ -390,7 +404,7 @@
             cboNH.FormattingEnabled = true;
             cboNH.Location = new Point(125, 105);
             cboNH.Name = "cboNH";
-            cboNH.Size = new Size(238, 28);
+            cboNH.Size = new Size(191, 28);
             cboNH.TabIndex = 3;
             // 
             // label3
@@ -467,6 +481,8 @@
             // btnHienSua
             // 
             btnHienSua.Enabled = false;
+            btnHienSua.Image = (Image)resources.GetObject("btnHienSua.Image");
+            btnHienSua.ImageAlign = ContentAlignment.MiddleLeft;
             btnHienSua.Location = new Point(101, 5);
             btnHienSua.Name = "btnHienSua";
             btnHienSua.Size = new Size(94, 29);
@@ -477,6 +493,8 @@
             // 
             // btnHienThem
             // 
+            btnHienThem.Image = (Image)resources.GetObject("btnHienThem.Image");
+            btnHienThem.ImageAlign = ContentAlignment.BottomLeft;
             btnHienThem.Location = new Point(0, 5);
             btnHienThem.Name = "btnHienThem";
             btnHienThem.Size = new Size(94, 29);
@@ -488,6 +506,8 @@
             // btnLuu
             // 
             btnLuu.Enabled = false;
+            btnLuu.Image = (Image)resources.GetObject("btnLuu.Image");
+            btnLuu.ImageAlign = ContentAlignment.MiddleLeft;
             btnLuu.Location = new Point(302, 5);
             btnLuu.Name = "btnLuu";
             btnLuu.Size = new Size(94, 29);
@@ -499,6 +519,8 @@
             // btnXoa
             // 
             btnXoa.Enabled = false;
+            btnXoa.Image = (Image)resources.GetObject("btnXoa.Image");
+            btnXoa.ImageAlign = ContentAlignment.MiddleLeft;
             btnXoa.Location = new Point(202, 5);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(94, 29);
@@ -754,5 +776,6 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private DataGridViewTextBoxColumn nh;
         private Button btnXoaDS;
+        private Button btnThemNH;
     }
 }

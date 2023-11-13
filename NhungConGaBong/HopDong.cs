@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,21 +10,21 @@ namespace NhungConGaBong
 {
     public class HopDong
     {
-        public string MaHD { get; set; }
+        public string MaHD { get; set; } = null!;
         public string MaNV { get; set; }
         public string MaKH { get; set; }
         public string TenHD { get; set; }
-        public string LoaiDat { get; set; } 
+        public string LoaiDat { get; set; }
         public int SoTo { get; set; }
         public int SoThua { get; set; }
         public string DienTich { get; set; }
         public string TriGia { get; set; }
         public DateTime NgayLap { get; set; }
         // số tờ và số thửa
-        public HopDong() 
+        public HopDong()
         {
-           
-            
+
+
         }
 
         public HopDong this[List<HopDong> hdList, int index]
@@ -51,18 +52,19 @@ namespace NhungConGaBong
         {
             // đổi chuỗi ra mảng thông qua kí tự dấu phẩy ','
             string[] values = chdLine.Split(',');
-            //this.MaHD = Convert.ToInt32(values[0]);
             this.MaHD = values[0];
             this.MaNV = values[1];
             this.MaKH = values[2];
             this.TenHD = values[3];
             this.LoaiDat = values[4];
-            this.SoTo= Convert.ToInt32(values[5]);
-            this.SoThua= Convert.ToInt32(values[6]);
+            this.SoTo = Convert.ToInt32(values[5]);
+            this.SoThua = Convert.ToInt32(values[6]);
             this.DienTich = values[7];
             this.TriGia = values[8];
-            this.NgayLap = Convert.ToDateTime(values[7]);
-           
+            var cultureInfoVietName = new CultureInfo("vi-VN");
+
+            string dateString = values[9];
+            this.NgayLap = DateTime.ParseExact(dateString, "d/M/yyyy", cultureInfoVietName);
         }
 
         public static int SaveToFile(List<HopDong> hdList, string fileName, bool insert = false)
@@ -70,16 +72,19 @@ namespace NhungConGaBong
             try
             {
                 StreamWriter sw = new StreamWriter(fileName, append: insert);
-                string header = "Mahd,TenCT,DiemThoai,IDNhanVien";
-                //Headers                  
-                sw.Write(header);
-                sw.Write(sw.NewLine);
+                if (!insert)
+                {
+                    string header = "MaHD,MaNV,MaKH,TenHD,LoaiDat,SoTo,SoThua,DienTich,TriGia,NgayLap";
+                    //Headers                  
+                    sw.Write(header);
+                    sw.Write(sw.NewLine);
+                }
                 // Lines
                 foreach (var hd in hdList)
                 {
                     string line = "";
                     line += "," + hd.MaHD;
-                    line+= "," + hd.MaNV;
+                    line += "," + hd.MaNV;
                     line += "," + hd.MaKH;
                     line += "," + hd.TenHD;
                     line += "," + hd.LoaiDat;
@@ -87,9 +92,9 @@ namespace NhungConGaBong
                     line += "," + hd.SoThua;
                     line += "," + hd.DienTich;
                     line += "," + hd.TriGia;
-                    line += "," + hd.NgayLap;
-                    
-                    
+                    line += "," + hd.NgayLap.ToString("d/M/yyyy");
+
+
                     line = line.Remove(0, 1);
                     sw.Write(line);
                     sw.Write(sw.NewLine);
@@ -137,8 +142,8 @@ namespace NhungConGaBong
                 DataRow row;
                 row = dataTable.NewRow();
                 row[0] = item.MaHD;
-                row[1]= item.MaNV;
-                row[2]= item.MaKH;
+                row[1] = item.MaNV;
+                row[2] = item.MaKH;
                 row[3] = item.TenHD;
                 row[4] = item.LoaiDat;
                 row[5] = item.SoTo;
@@ -146,8 +151,8 @@ namespace NhungConGaBong
                 row[7] = item.DienTich;
                 row[8] = item.TriGia;
                 row[9] = item.NgayLap;
-            
-                
+
+
                 dataTable.Rows.Add(row);
             }
             //put a breakpoint here and check datatable

@@ -42,7 +42,6 @@
             SDTnv = new DataGridViewTextBoxColumn();
             tbpAdd = new TabPage();
             panel2 = new Panel();
-            btnUpdate = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
             btnSaveToFile = new Button();
@@ -70,7 +69,6 @@
             GioiTinh = new DataGridViewTextBoxColumn();
             DiaChi = new DataGridViewTextBoxColumn();
             SDT = new DataGridViewTextBoxColumn();
-            Xoa = new DataGridViewCheckBoxColumn();
             tbcNhanVien = new TabControl();
             tbpDanhSach.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvNhanVienView).BeginInit();
@@ -206,29 +204,19 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(btnUpdate);
             panel2.Controls.Add(btnEdit);
             panel2.Controls.Add(btnDelete);
             panel2.Controls.Add(btnSaveToFile);
             panel2.Controls.Add(btnAdd);
-            panel2.Location = new Point(1004, 6);
+            panel2.Location = new Point(1023, 6);
             panel2.Name = "panel2";
-            panel2.Size = new Size(108, 181);
+            panel2.Size = new Size(100, 152);
             panel2.TabIndex = 16;
-            // 
-            // btnUpdate
-            // 
-            btnUpdate.Location = new Point(3, 146);
-            btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(94, 29);
-            btnUpdate.TabIndex = 15;
-            btnUpdate.Text = "Cập nhật";
-            btnUpdate.UseVisualStyleBackColor = true;
-            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnEdit
             // 
-            btnEdit.Location = new Point(3, 111);
+            btnEdit.Enabled = false;
+            btnEdit.Location = new Point(3, 75);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(94, 29);
             btnEdit.TabIndex = 1;
@@ -238,7 +226,8 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(3, 6);
+            btnDelete.Enabled = false;
+            btnDelete.Location = new Point(3, 108);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(94, 29);
             btnDelete.TabIndex = 13;
@@ -248,7 +237,7 @@
             // 
             // btnSaveToFile
             // 
-            btnSaveToFile.Location = new Point(3, 40);
+            btnSaveToFile.Location = new Point(3, 42);
             btnSaveToFile.Name = "btnSaveToFile";
             btnSaveToFile.Size = new Size(94, 29);
             btnSaveToFile.TabIndex = 14;
@@ -258,7 +247,7 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(3, 76);
+            btnAdd.Location = new Point(3, 9);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(94, 29);
             btnAdd.TabIndex = 12;
@@ -282,24 +271,24 @@
             panel1.Controls.Add(dtpNgaySinh);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(txtDiaChi);
-            panel1.Location = new Point(6, 6);
+            panel1.Location = new Point(9, 15);
             panel1.Name = "panel1";
-            panel1.Size = new Size(992, 105);
+            panel1.Size = new Size(1011, 105);
             panel1.TabIndex = 15;
             // 
             // cboGioiTinh
             // 
             cboGioiTinh.FormattingEnabled = true;
             cboGioiTinh.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            cboGioiTinh.Location = new Point(804, 4);
+            cboGioiTinh.Location = new Point(832, 10);
             cboGioiTinh.Name = "cboGioiTinh";
             cboGioiTinh.Size = new Size(151, 28);
-            cboGioiTinh.TabIndex = 7;
+            cboGioiTinh.TabIndex = 9;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(11, 9);
+            label1.Location = new Point(11, 13);
             label1.Name = "label1";
             label1.Size = new Size(100, 20);
             label1.TabIndex = 2;
@@ -307,22 +296,23 @@
             // 
             // txtMaNV
             // 
-            txtMaNV.Location = new Point(117, 5);
+            txtMaNV.Location = new Point(117, 9);
             txtMaNV.Name = "txtMaNV";
             txtMaNV.Size = new Size(125, 27);
             txtMaNV.TabIndex = 3;
             // 
             // txtSDT
             // 
-            txtSDT.Location = new Point(599, 6);
+            txtSDT.Location = new Point(599, 10);
             txtSDT.Name = "txtSDT";
             txtSDT.Size = new Size(125, 27);
-            txtSDT.TabIndex = 6;
+            txtSDT.TabIndex = 8;
+            txtSDT.KeyPress += txtSDT_KeyPress;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(45, 49);
+            label2.Location = new Point(45, 64);
             label2.Name = "label2";
             label2.Size = new Size(66, 20);
             label2.TabIndex = 2;
@@ -331,7 +321,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(730, 8);
+            label9.Location = new Point(758, 14);
             label9.Name = "label9";
             label9.Size = new Size(68, 20);
             label9.TabIndex = 5;
@@ -339,15 +329,16 @@
             // 
             // txtHoDem
             // 
-            txtHoDem.Location = new Point(117, 46);
+            txtHoDem.Location = new Point(117, 61);
             txtHoDem.Name = "txtHoDem";
             txtHoDem.Size = new Size(125, 27);
-            txtHoDem.TabIndex = 3;
+            txtHoDem.TabIndex = 4;
+            txtHoDem.KeyPress += txtHoDem_KeyPress;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(248, 8);
+            label8.Location = new Point(248, 12);
             label8.Name = "label8";
             label8.Size = new Size(77, 20);
             label8.TabIndex = 5;
@@ -356,7 +347,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(287, 49);
+            label3.Location = new Point(287, 64);
             label3.Name = "label3";
             label3.Size = new Size(35, 20);
             label3.TabIndex = 2;
@@ -365,7 +356,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(493, 10);
+            label4.Location = new Point(493, 14);
             label4.Name = "label4";
             label4.Size = new Size(100, 20);
             label4.TabIndex = 5;
@@ -373,24 +364,25 @@
             // 
             // txtTen
             // 
-            txtTen.Location = new Point(328, 46);
+            txtTen.Location = new Point(328, 61);
             txtTen.Name = "txtTen";
             txtTen.Size = new Size(159, 27);
-            txtTen.TabIndex = 3;
+            txtTen.TabIndex = 5;
+            txtTen.KeyPress += txtTen_KeyPress;
             // 
             // dtpNgaySinh
             // 
             dtpNgaySinh.CustomFormat = "dd/MM/yyyy";
             dtpNgaySinh.Format = DateTimePickerFormat.Custom;
-            dtpNgaySinh.Location = new Point(331, 5);
+            dtpNgaySinh.Location = new Point(331, 9);
             dtpNgaySinh.Name = "dtpNgaySinh";
             dtpNgaySinh.Size = new Size(156, 27);
-            dtpNgaySinh.TabIndex = 4;
+            dtpNgaySinh.TabIndex = 6;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(535, 49);
+            label5.Location = new Point(535, 64);
             label5.Name = "label5";
             label5.Size = new Size(58, 20);
             label5.TabIndex = 2;
@@ -398,21 +390,24 @@
             // 
             // txtDiaChi
             // 
-            txtDiaChi.Location = new Point(599, 49);
+            txtDiaChi.Location = new Point(599, 64);
             txtDiaChi.Name = "txtDiaChi";
-            txtDiaChi.Size = new Size(356, 27);
-            txtDiaChi.TabIndex = 3;
+            txtDiaChi.Size = new Size(384, 27);
+            txtDiaChi.TabIndex = 7;
             // 
             // dgvNhanVien
             // 
             dgvNhanVien.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvNhanVien.Columns.AddRange(new DataGridViewColumn[] { MaNV, HoDem, Ten, NgaySinh, GioiTinh, DiaChi, SDT, Xoa });
-            dgvNhanVien.Location = new Point(6, 117);
+            dgvNhanVien.Columns.AddRange(new DataGridViewColumn[] { MaNV, HoDem, Ten, NgaySinh, GioiTinh, DiaChi, SDT });
+            dgvNhanVien.Dock = DockStyle.Bottom;
+            dgvNhanVien.Location = new Point(3, 164);
             dgvNhanVien.Name = "dgvNhanVien";
             dgvNhanVien.RowHeadersWidth = 51;
             dgvNhanVien.RowTemplate.Height = 29;
-            dgvNhanVien.Size = new Size(992, 393);
+            dgvNhanVien.Size = new Size(1123, 349);
             dgvNhanVien.TabIndex = 11;
+            dgvNhanVien.CellClick += dgvNhanVien_CellClick;
+            dgvNhanVien.RowPostPaint += dgvNhanVien_RowPostPaint;
             // 
             // MaNV
             // 
@@ -470,15 +465,6 @@
             SDT.Name = "SDT";
             SDT.Width = 125;
             // 
-            // Xoa
-            // 
-            Xoa.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Xoa.DataPropertyName = "Xoa";
-            Xoa.HeaderText = "Chọn";
-            Xoa.MinimumWidth = 6;
-            Xoa.Name = "Xoa";
-            Xoa.Width = 49;
-            // 
             // tbcNhanVien
             // 
             tbcNhanVien.Controls.Add(tbpAdd);
@@ -493,7 +479,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1340, 630);
+            ClientSize = new Size(1139, 545);
             Controls.Add(tbcNhanVien);
             Name = "FrmNhanVien";
             Text = "Nhân viên";
@@ -514,7 +500,6 @@
 
         private TabPage tbpDanhSach;
         private TabPage tbpAdd;
-        private Panel panel2;
         private Button btnDelete;
         private Button btnSaveToFile;
         private Button btnAdd;
@@ -535,16 +520,7 @@
         private TextBox txtDiaChi;
         private DataGridView dgvNhanVien;
         private TabControl tbcNhanVien;
-        private DataGridViewTextBoxColumn MaNV;
-        private DataGridViewTextBoxColumn HoDem;
-        private DataGridViewTextBoxColumn Ten;
-        private DataGridViewTextBoxColumn NgaySinh;
-        private DataGridViewTextBoxColumn GioiTinh;
-        private DataGridViewTextBoxColumn DiaChi;
-        private DataGridViewTextBoxColumn SDT;
-        private DataGridViewCheckBoxColumn Xoa;
         private Button btnEdit;
-        private Button btnUpdate;
         private DataGridView dgvNhanVienView;
         private Button btnXuat;
         private TextBox txtFind;
@@ -556,5 +532,13 @@
         private DataGridViewTextBoxColumn GioiTinhNV;
         private DataGridViewTextBoxColumn DiaChiNV;
         private DataGridViewTextBoxColumn SDTnv;
+        private DataGridViewTextBoxColumn MaNV;
+        private DataGridViewTextBoxColumn HoDem;
+        private DataGridViewTextBoxColumn Ten;
+        private DataGridViewTextBoxColumn NgaySinh;
+        private DataGridViewTextBoxColumn GioiTinh;
+        private DataGridViewTextBoxColumn DiaChi;
+        private DataGridViewTextBoxColumn SDT;
+        private Panel panel2;
     }
 }

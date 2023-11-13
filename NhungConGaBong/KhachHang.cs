@@ -23,9 +23,7 @@ namespace NhungConGaBong
         public  KhachHang() 
         {
             NganHangID = 0;
-            HoDemKH = TenKH = MaSoThue = DienThoai = Email = STK = "";
-            Random random = new Random();
-            MaKH = "KH" + random.Next(10000000,99999999).ToString("D2");
+            MaKH = HoDemKH = TenKH = MaSoThue = DienThoai = Email = STK = "";
         }
         public KhachHang this[List<KhachHang> khList, int index]
         {
@@ -109,7 +107,7 @@ namespace NhungConGaBong
             string line = "";
             using (StreamReader reader = new StreamReader(fileName))
             {
-                // Skip the column names row                
+
                 if (!reader.EndOfStream) reader.ReadLine();
 
                 while (!reader.EndOfStream)

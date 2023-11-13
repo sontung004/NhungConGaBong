@@ -29,18 +29,6 @@
         private void InitializeComponent()
         {
             cboNhanVien = new ComboBox();
-            dgvDanhSachHD = new DataGridView();
-            MaHD = new DataGridViewTextBoxColumn();
-            MaNV = new DataGridViewTextBoxColumn();
-            MaKH = new DataGridViewTextBoxColumn();
-            TenHD = new DataGridViewTextBoxColumn();
-            LoaiDat = new DataGridViewTextBoxColumn();
-            DienTich = new DataGridViewTextBoxColumn();
-            TriGia = new DataGridViewTextBoxColumn();
-            SoTo = new DataGridViewTextBoxColumn();
-            SoThua = new DataGridViewTextBoxColumn();
-            NgayLap = new DataGridViewTextBoxColumn();
-            btnTimKiem = new Button();
             cboHopDong = new ComboBox();
             btnXoa = new Button();
             btnAdd = new Button();
@@ -59,8 +47,6 @@
             txtDienTich = new TextBox();
             label6 = new Label();
             txtTriGia = new TextBox();
-            dtpNgayLap = new DateTimePicker();
-            label7 = new Label();
             label8 = new Label();
             label9 = new Label();
             label5 = new Label();
@@ -75,158 +61,70 @@
             panel1 = new Panel();
             panel5 = new Panel();
             panel4 = new Panel();
+            label7 = new Label();
+            dtpNgayLap = new DateTimePicker();
             panel3 = new Panel();
             panel2 = new Panel();
-            ((System.ComponentModel.ISupportInitialize)dgvDanhSachHD).BeginInit();
+            dgvDanhSachHD = new DataGridView();
+            MaHD = new DataGridViewTextBoxColumn();
+            MaNV = new DataGridViewTextBoxColumn();
+            MaKH = new DataGridViewTextBoxColumn();
+            TenHD = new DataGridViewTextBoxColumn();
+            LoaiDat = new DataGridViewTextBoxColumn();
+            DienTich = new DataGridViewTextBoxColumn();
+            TriGia = new DataGridViewTextBoxColumn();
+            SoTo = new DataGridViewTextBoxColumn();
+            SoThua = new DataGridViewTextBoxColumn();
+            NgayLap = new DataGridViewTextBoxColumn();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            dgvHopDongview = new DataGridView();
+            MaHopDong = new DataGridViewTextBoxColumn();
+            MaNhanVien = new DataGridViewTextBoxColumn();
+            MaKhachHang = new DataGridViewTextBoxColumn();
+            TenHopDong = new DataGridViewTextBoxColumn();
+            LoaiDatMua = new DataGridViewTextBoxColumn();
+            DienTichThuc = new DataGridViewTextBoxColumn();
+            GiaTri = new DataGridViewTextBoxColumn();
+            SoToView = new DataGridViewTextBoxColumn();
+            SoThuaView = new DataGridViewTextBoxColumn();
+            NgayLapHopDong = new DataGridViewTextBoxColumn();
+            panel6 = new Panel();
+            btnXoaDS = new Button();
+            label11 = new Label();
+            btnXuat = new Button();
+            txtNhap = new TextBox();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDanhSachHD).BeginInit();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvHopDongview).BeginInit();
+            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // cboNhanVien
             // 
             cboNhanVien.DropDownStyle = ComboBoxStyle.DropDownList;
             cboNhanVien.FormattingEnabled = true;
-            cboNhanVien.Location = new Point(125, 91);
+            cboNhanVien.Location = new Point(125, 107);
             cboNhanVien.Name = "cboNhanVien";
             cboNhanVien.Size = new Size(237, 28);
             cboNhanVien.TabIndex = 28;
             cboNhanVien.SelectedIndexChanged += cboNhanVien_SelectedIndexChanged;
             // 
-            // dgvDanhSachHD
-            // 
-            dgvDanhSachHD.AllowUserToAddRows = false;
-            dgvDanhSachHD.AllowUserToDeleteRows = false;
-            dgvDanhSachHD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDanhSachHD.Columns.AddRange(new DataGridViewColumn[] { MaHD, MaNV, MaKH, TenHD, LoaiDat, DienTich, TriGia, SoTo, SoThua, NgayLap });
-            dgvDanhSachHD.Dock = DockStyle.Fill;
-            dgvDanhSachHD.Location = new Point(3, 173);
-            dgvDanhSachHD.Name = "dgvDanhSachHD";
-            dgvDanhSachHD.ReadOnly = true;
-            dgvDanhSachHD.RowHeadersWidth = 51;
-            dgvDanhSachHD.RowTemplate.Height = 29;
-            dgvDanhSachHD.Size = new Size(1617, 655);
-            dgvDanhSachHD.TabIndex = 19;
-            dgvDanhSachHD.CellClick += dgvDanhSachHD_CellClick;
-            // 
-            // MaHD
-            // 
-            MaHD.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            MaHD.DataPropertyName = "MaHD";
-            MaHD.HeaderText = "Mã hợp đồng";
-            MaHD.MinimumWidth = 6;
-            MaHD.Name = "MaHD";
-            MaHD.ReadOnly = true;
-            MaHD.Width = 118;
-            // 
-            // MaNV
-            // 
-            MaNV.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            MaNV.DataPropertyName = "MaNV";
-            MaNV.HeaderText = "Mã nhân viên";
-            MaNV.MinimumWidth = 6;
-            MaNV.Name = "MaNV";
-            MaNV.ReadOnly = true;
-            MaNV.Width = 116;
-            // 
-            // MaKH
-            // 
-            MaKH.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            MaKH.DataPropertyName = "MaKH";
-            MaKH.FillWeight = 130F;
-            MaKH.HeaderText = "Mã khách hàng";
-            MaKH.MinimumWidth = 6;
-            MaKH.Name = "MaKH";
-            MaKH.ReadOnly = true;
-            MaKH.Width = 127;
-            // 
-            // TenHD
-            // 
-            TenHD.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            TenHD.DataPropertyName = "TenHD";
-            TenHD.HeaderText = "Tên hợp đồng";
-            TenHD.MinimumWidth = 6;
-            TenHD.Name = "TenHD";
-            TenHD.ReadOnly = true;
-            TenHD.Width = 119;
-            // 
-            // LoaiDat
-            // 
-            LoaiDat.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            LoaiDat.DataPropertyName = "LoaiDat";
-            LoaiDat.HeaderText = "Loại đất";
-            LoaiDat.MinimumWidth = 6;
-            LoaiDat.Name = "LoaiDat";
-            LoaiDat.ReadOnly = true;
-            LoaiDat.Width = 85;
-            // 
-            // DienTich
-            // 
-            DienTich.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            DienTich.DataPropertyName = "DienTich";
-            DienTich.HeaderText = "Diện tích";
-            DienTich.MinimumWidth = 6;
-            DienTich.Name = "DienTich";
-            DienTich.ReadOnly = true;
-            DienTich.Width = 90;
-            // 
-            // TriGia
-            // 
-            TriGia.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            TriGia.DataPropertyName = "TriGia";
-            TriGia.HeaderText = "Trị giá";
-            TriGia.MinimumWidth = 6;
-            TriGia.Name = "TriGia";
-            TriGia.ReadOnly = true;
-            TriGia.Width = 74;
-            // 
-            // SoTo
-            // 
-            SoTo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            SoTo.DataPropertyName = "SoTo";
-            SoTo.HeaderText = "Số tờ";
-            SoTo.MinimumWidth = 6;
-            SoTo.Name = "SoTo";
-            SoTo.ReadOnly = true;
-            SoTo.Width = 56;
-            // 
-            // SoThua
-            // 
-            SoThua.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            SoThua.DataPropertyName = "SoThua";
-            SoThua.HeaderText = "Số thửa";
-            SoThua.MinimumWidth = 6;
-            SoThua.Name = "SoThua";
-            SoThua.ReadOnly = true;
-            SoThua.Width = 83;
-            // 
-            // NgayLap
-            // 
-            NgayLap.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            NgayLap.DataPropertyName = "NgayLap";
-            NgayLap.FillWeight = 200F;
-            NgayLap.HeaderText = "Ngày lập hợp đồng";
-            NgayLap.MinimumWidth = 6;
-            NgayLap.Name = "NgayLap";
-            NgayLap.ReadOnly = true;
-            NgayLap.Width = 121;
-            // 
-            // btnTimKiem
-            // 
-            btnTimKiem.Location = new Point(1364, 50);
-            btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(94, 29);
-            btnTimKiem.TabIndex = 18;
-            btnTimKiem.Text = "Tìm kiếm";
-            btnTimKiem.UseVisualStyleBackColor = true;
-            // 
             // cboHopDong
             // 
             cboHopDong.FormattingEnabled = true;
-            cboHopDong.Location = new Point(125, 51);
+            cboHopDong.Location = new Point(125, 53);
             cboHopDong.Name = "cboHopDong";
             cboHopDong.Size = new Size(237, 28);
             cboHopDong.TabIndex = 16;
@@ -263,7 +161,8 @@
             // 
             // txtMaHD
             // 
-            txtMaHD.Location = new Point(125, 12);
+            txtMaHD.Enabled = false;
+            txtMaHD.Location = new Point(125, 6);
             txtMaHD.Name = "txtMaHD";
             txtMaHD.Size = new Size(237, 27);
             txtMaHD.TabIndex = 12;
@@ -271,7 +170,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(9, 15);
+            label1.Location = new Point(9, 9);
             label1.Name = "label1";
             label1.Size = new Size(102, 20);
             label1.TabIndex = 10;
@@ -280,7 +179,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(9, 55);
+            label2.Location = new Point(9, 57);
             label2.Name = "label2";
             label2.Size = new Size(104, 20);
             label2.TabIndex = 10;
@@ -312,7 +211,7 @@
             // 
             rdbDatPhiNpngNghiep.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             rdbDatPhiNpngNghiep.AutoSize = true;
-            rdbDatPhiNpngNghiep.Location = new Point(116, 53);
+            rdbDatPhiNpngNghiep.Location = new Point(116, 62);
             rdbDatPhiNpngNghiep.Name = "rdbDatPhiNpngNghiep";
             rdbDatPhiNpngNghiep.Size = new Size(210, 24);
             rdbDatPhiNpngNghiep.TabIndex = 21;
@@ -324,7 +223,7 @@
             // 
             rdbDatChuaSuDung.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             rdbDatChuaSuDung.AutoSize = true;
-            rdbDatChuaSuDung.Location = new Point(116, 91);
+            rdbDatChuaSuDung.Location = new Point(116, 111);
             rdbDatChuaSuDung.Name = "rdbDatChuaSuDung";
             rdbDatChuaSuDung.Size = new Size(190, 24);
             rdbDatChuaSuDung.TabIndex = 21;
@@ -339,7 +238,7 @@
             cbbNongNghiep.FormattingEnabled = true;
             cbbNongNghiep.Location = new Point(332, 10);
             cbbNongNghiep.Name = "cbbNongNghiep";
-            cbbNongNghiep.Size = new Size(379, 28);
+            cbbNongNghiep.Size = new Size(408, 28);
             cbbNongNghiep.TabIndex = 22;
             // 
             // cbbPhiNongNghiep
@@ -347,9 +246,9 @@
             cbbPhiNongNghiep.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             cbbPhiNongNghiep.DropDownStyle = ComboBoxStyle.DropDownList;
             cbbPhiNongNghiep.FormattingEnabled = true;
-            cbbPhiNongNghiep.Location = new Point(332, 49);
+            cbbPhiNongNghiep.Location = new Point(332, 61);
             cbbPhiNongNghiep.Name = "cbbPhiNongNghiep";
-            cbbPhiNongNghiep.Size = new Size(379, 28);
+            cbbPhiNongNghiep.Size = new Size(408, 28);
             cbbPhiNongNghiep.TabIndex = 22;
             // 
             // cbbChuaSuDung
@@ -357,9 +256,9 @@
             cbbChuaSuDung.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             cbbChuaSuDung.DropDownStyle = ComboBoxStyle.DropDownList;
             cbbChuaSuDung.FormattingEnabled = true;
-            cbbChuaSuDung.Location = new Point(332, 90);
+            cbbChuaSuDung.Location = new Point(332, 110);
             cbbChuaSuDung.Name = "cbbChuaSuDung";
-            cbbChuaSuDung.Size = new Size(379, 28);
+            cbbChuaSuDung.Size = new Size(408, 28);
             cbbChuaSuDung.TabIndex = 22;
             // 
             // label4
@@ -377,11 +276,12 @@
             txtDienTich.Name = "txtDienTich";
             txtDienTich.Size = new Size(143, 27);
             txtDienTich.TabIndex = 12;
+            txtDienTich.KeyPress += txtDienTich_KeyPress;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(30, 51);
+            label6.Location = new Point(30, 61);
             label6.Name = "label6";
             label6.Size = new Size(53, 20);
             label6.TabIndex = 10;
@@ -389,33 +289,16 @@
             // 
             // txtTriGia
             // 
-            txtTriGia.Location = new Point(89, 49);
+            txtTriGia.Location = new Point(89, 59);
             txtTriGia.Name = "txtTriGia";
             txtTriGia.Size = new Size(143, 27);
             txtTriGia.TabIndex = 12;
-            // 
-            // dtpNgayLap
-            // 
-            dtpNgayLap.Format = DateTimePickerFormat.Custom;
-            dtpNgayLap.Location = new Point(1523, 12);
-            dtpNgayLap.Name = "dtpNgayLap";
-            dtpNgayLap.Size = new Size(250, 27);
-            dtpNgayLap.TabIndex = 23;
-            dtpNgayLap.Value = new DateTime(2023, 10, 29, 0, 0, 0, 0);
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(1364, 19);
-            label7.Name = "label7";
-            label7.Size = new Size(138, 20);
-            label7.TabIndex = 24;
-            label7.Text = "Ngày lập hợp đồng";
+            txtTriGia.KeyPress += txtTriGia_KeyPress;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(9, 96);
+            label8.Location = new Point(9, 112);
             label8.Name = "label8";
             label8.Size = new Size(100, 20);
             label8.TabIndex = 25;
@@ -424,7 +307,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(9, 134);
+            label9.Location = new Point(9, 166);
             label9.Name = "label9";
             label9.Size = new Size(112, 20);
             label9.TabIndex = 27;
@@ -433,7 +316,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(36, 91);
+            label5.Location = new Point(36, 114);
             label5.Name = "label5";
             label5.Size = new Size(47, 20);
             label5.TabIndex = 10;
@@ -441,15 +324,16 @@
             // 
             // txtSoTo
             // 
-            txtSoTo.Location = new Point(89, 88);
+            txtSoTo.Location = new Point(89, 111);
             txtSoTo.Name = "txtSoTo";
             txtSoTo.Size = new Size(143, 27);
             txtSoTo.TabIndex = 12;
+            txtSoTo.KeyPress += txtSoTo_KeyPress;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(20, 128);
+            label10.Location = new Point(20, 163);
             label10.Name = "label10";
             label10.Size = new Size(63, 20);
             label10.TabIndex = 10;
@@ -457,10 +341,11 @@
             // 
             // txtSoThua
             // 
-            txtSoThua.Location = new Point(89, 125);
+            txtSoThua.Location = new Point(89, 160);
             txtSoThua.Name = "txtSoThua";
             txtSoThua.Size = new Size(143, 27);
             txtSoThua.TabIndex = 12;
+            txtSoThua.KeyPress += txtSoThua_KeyPress;
             // 
             // btnSua
             // 
@@ -476,7 +361,7 @@
             // 
             cboKhachHang.DropDownStyle = ComboBoxStyle.DropDownList;
             cboKhachHang.FormattingEnabled = true;
-            cboKhachHang.Location = new Point(125, 131);
+            cboKhachHang.Location = new Point(125, 163);
             cboKhachHang.Name = "cboKhachHang";
             cboKhachHang.Size = new Size(237, 28);
             cboKhachHang.TabIndex = 28;
@@ -485,7 +370,7 @@
             // lblKhachHang
             // 
             lblKhachHang.AutoSize = true;
-            lblKhachHang.Location = new Point(365, 136);
+            lblKhachHang.Location = new Point(365, 168);
             lblKhachHang.Name = "lblKhachHang";
             lblKhachHang.Size = new Size(18, 20);
             lblKhachHang.TabIndex = 29;
@@ -494,7 +379,7 @@
             // lblNhanVien
             // 
             lblNhanVien.AutoSize = true;
-            lblNhanVien.Location = new Point(365, 95);
+            lblNhanVien.Location = new Point(365, 127);
             lblNhanVien.Name = "lblNhanVien";
             lblNhanVien.Size = new Size(18, 20);
             lblNhanVien.TabIndex = 30;
@@ -508,12 +393,12 @@
             tableLayoutPanel1.Controls.Add(panel1, 0, 0);
             tableLayoutPanel1.Controls.Add(dgvDanhSachHD, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Location = new Point(3, 3);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20.4572811F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 79.54272F));
-            tableLayoutPanel1.Size = new Size(1623, 831);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 25.50505F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 74.49495F));
+            tableLayoutPanel1.Size = new Size(1500, 792);
             tableLayoutPanel1.TabIndex = 31;
             // 
             // panel1
@@ -525,7 +410,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1617, 164);
+            panel1.Size = new Size(1494, 196);
             panel1.TabIndex = 32;
             // 
             // panel5
@@ -543,11 +428,13 @@
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(530, 164);
+            panel5.Size = new Size(378, 196);
             panel5.TabIndex = 34;
             // 
             // panel4
             // 
+            panel4.Controls.Add(label7);
+            panel4.Controls.Add(dtpNgayLap);
             panel4.Controls.Add(cbbNongNghiep);
             panel4.Controls.Add(label3);
             panel4.Controls.Add(rdbDatNongNghiep);
@@ -556,10 +443,29 @@
             panel4.Controls.Add(rdbDatChuaSuDung);
             panel4.Controls.Add(cbbChuaSuDung);
             panel4.Dock = DockStyle.Right;
-            panel4.Location = new Point(530, 0);
+            panel4.Location = new Point(378, 0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(717, 164);
+            panel4.Size = new Size(746, 196);
             panel4.TabIndex = 33;
+            panel4.Paint += panel4_Paint;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(117, 164);
+            label7.Name = "label7";
+            label7.Size = new Size(138, 20);
+            label7.TabIndex = 26;
+            label7.Text = "Ngày lập hợp đồng";
+            // 
+            // dtpNgayLap
+            // 
+            dtpNgayLap.Format = DateTimePickerFormat.Custom;
+            dtpNgayLap.Location = new Point(332, 163);
+            dtpNgayLap.Name = "dtpNgayLap";
+            dtpNgayLap.Size = new Size(250, 27);
+            dtpNgayLap.TabIndex = 25;
+            dtpNgayLap.Value = new DateTime(2023, 10, 29, 0, 0, 0, 0);
             // 
             // panel3
             // 
@@ -572,9 +478,9 @@
             panel3.Controls.Add(label5);
             panel3.Controls.Add(label4);
             panel3.Dock = DockStyle.Right;
-            panel3.Location = new Point(1247, 0);
+            panel3.Location = new Point(1124, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(250, 164);
+            panel3.Size = new Size(250, 196);
             panel3.TabIndex = 32;
             // 
             // panel2
@@ -584,24 +490,356 @@
             panel2.Controls.Add(btnAdd);
             panel2.Controls.Add(btnLuu);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(1497, 0);
+            panel2.Location = new Point(1374, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(120, 164);
+            panel2.Size = new Size(120, 196);
             panel2.TabIndex = 31;
+            // 
+            // dgvDanhSachHD
+            // 
+            dgvDanhSachHD.AllowUserToAddRows = false;
+            dgvDanhSachHD.AllowUserToDeleteRows = false;
+            dgvDanhSachHD.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvDanhSachHD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDanhSachHD.Columns.AddRange(new DataGridViewColumn[] { MaHD, MaNV, MaKH, TenHD, LoaiDat, DienTich, TriGia, SoTo, SoThua, NgayLap });
+            dgvDanhSachHD.Dock = DockStyle.Fill;
+            dgvDanhSachHD.Location = new Point(3, 205);
+            dgvDanhSachHD.Name = "dgvDanhSachHD";
+            dgvDanhSachHD.ReadOnly = true;
+            dgvDanhSachHD.RowHeadersWidth = 51;
+            dgvDanhSachHD.RowTemplate.Height = 29;
+            dgvDanhSachHD.Size = new Size(1494, 584);
+            dgvDanhSachHD.TabIndex = 19;
+            dgvDanhSachHD.CellClick += dgvDanhSachHD_CellClick;
+            dgvDanhSachHD.RowPostPaint += dgvDanhSachHD_RowPostPaint;
+            // 
+            // MaHD
+            // 
+            MaHD.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MaHD.DataPropertyName = "MaHD";
+            MaHD.FillWeight = 150F;
+            MaHD.HeaderText = "Mã hợp đồng";
+            MaHD.MinimumWidth = 6;
+            MaHD.Name = "MaHD";
+            MaHD.ReadOnly = true;
+            MaHD.Width = 128;
+            // 
+            // MaNV
+            // 
+            MaNV.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MaNV.DataPropertyName = "MaNV";
+            MaNV.HeaderText = "Mã nhân viên";
+            MaNV.MinimumWidth = 6;
+            MaNV.Name = "MaNV";
+            MaNV.ReadOnly = true;
+            MaNV.Width = 126;
+            // 
+            // MaKH
+            // 
+            MaKH.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MaKH.DataPropertyName = "MaKH";
+            MaKH.FillWeight = 130F;
+            MaKH.HeaderText = "Mã khách hàng";
+            MaKH.MinimumWidth = 6;
+            MaKH.Name = "MaKH";
+            MaKH.ReadOnly = true;
+            MaKH.Width = 138;
+            // 
+            // TenHD
+            // 
+            TenHD.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            TenHD.DataPropertyName = "TenHD";
+            TenHD.HeaderText = "Tên hợp đồng";
+            TenHD.MinimumWidth = 6;
+            TenHD.Name = "TenHD";
+            TenHD.ReadOnly = true;
+            TenHD.Width = 130;
+            // 
+            // LoaiDat
+            // 
+            LoaiDat.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            LoaiDat.DataPropertyName = "LoaiDat";
+            LoaiDat.HeaderText = "Loại đất";
+            LoaiDat.MinimumWidth = 6;
+            LoaiDat.Name = "LoaiDat";
+            LoaiDat.ReadOnly = true;
+            LoaiDat.Width = 92;
+            // 
+            // DienTich
+            // 
+            DienTich.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            DienTich.DataPropertyName = "DienTich";
+            DienTich.HeaderText = "Diện tích";
+            DienTich.MinimumWidth = 6;
+            DienTich.Name = "DienTich";
+            DienTich.ReadOnly = true;
+            DienTich.Width = 97;
+            // 
+            // TriGia
+            // 
+            TriGia.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            TriGia.DataPropertyName = "TriGia";
+            TriGia.HeaderText = "Trị giá";
+            TriGia.MinimumWidth = 6;
+            TriGia.Name = "TriGia";
+            TriGia.ReadOnly = true;
+            TriGia.Width = 79;
+            // 
+            // SoTo
+            // 
+            SoTo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            SoTo.DataPropertyName = "SoTo";
+            SoTo.HeaderText = "Số tờ";
+            SoTo.MinimumWidth = 6;
+            SoTo.Name = "SoTo";
+            SoTo.ReadOnly = true;
+            SoTo.Width = 73;
+            // 
+            // SoThua
+            // 
+            SoThua.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            SoThua.DataPropertyName = "SoThua";
+            SoThua.HeaderText = "Số thửa";
+            SoThua.MinimumWidth = 6;
+            SoThua.Name = "SoThua";
+            SoThua.ReadOnly = true;
+            SoThua.Width = 89;
+            // 
+            // NgayLap
+            // 
+            NgayLap.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            NgayLap.DataPropertyName = "NgayLap";
+            NgayLap.FillWeight = 200F;
+            NgayLap.HeaderText = "Ngày lập";
+            NgayLap.MinimumWidth = 6;
+            NgayLap.Name = "NgayLap";
+            NgayLap.ReadOnly = true;
+            NgayLap.Width = 98;
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Location = new Point(0, 0);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(1514, 831);
+            tabControl1.TabIndex = 32;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(tableLayoutPanel1);
+            tabPage1.Location = new Point(4, 29);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(1506, 798);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Nhập hợp đồng";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(tableLayoutPanel2);
+            tabPage2.Location = new Point(4, 29);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(1506, 798);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Xuất hợp đồng";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 1;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(dgvHopDongview, 0, 1);
+            tableLayoutPanel2.Controls.Add(panel6, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(3, 3);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 2;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 14.7482014F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 85.2518F));
+            tableLayoutPanel2.Size = new Size(1500, 792);
+            tableLayoutPanel2.TabIndex = 0;
+            // 
+            // dgvHopDongview
+            // 
+            dgvHopDongview.AllowUserToAddRows = false;
+            dgvHopDongview.AllowUserToDeleteRows = false;
+            dgvHopDongview.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvHopDongview.Columns.AddRange(new DataGridViewColumn[] { MaHopDong, MaNhanVien, MaKhachHang, TenHopDong, LoaiDatMua, DienTichThuc, GiaTri, SoToView, SoThuaView, NgayLapHopDong });
+            dgvHopDongview.Dock = DockStyle.Fill;
+            dgvHopDongview.Location = new Point(3, 119);
+            dgvHopDongview.Name = "dgvHopDongview";
+            dgvHopDongview.ReadOnly = true;
+            dgvHopDongview.RowHeadersWidth = 51;
+            dgvHopDongview.RowTemplate.Height = 29;
+            dgvHopDongview.Size = new Size(1494, 670);
+            dgvHopDongview.TabIndex = 20;
+            // 
+            // MaHopDong
+            // 
+            MaHopDong.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MaHopDong.DataPropertyName = "MaHD";
+            MaHopDong.FillWeight = 150F;
+            MaHopDong.HeaderText = "Mã hợp đồng";
+            MaHopDong.MinimumWidth = 6;
+            MaHopDong.Name = "MaHopDong";
+            MaHopDong.ReadOnly = true;
+            MaHopDong.Width = 128;
+            // 
+            // MaNhanVien
+            // 
+            MaNhanVien.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MaNhanVien.DataPropertyName = "MaNV";
+            MaNhanVien.HeaderText = "Mã nhân viên";
+            MaNhanVien.MinimumWidth = 6;
+            MaNhanVien.Name = "MaNhanVien";
+            MaNhanVien.ReadOnly = true;
+            MaNhanVien.Width = 126;
+            // 
+            // MaKhachHang
+            // 
+            MaKhachHang.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            MaKhachHang.DataPropertyName = "MaKH";
+            MaKhachHang.FillWeight = 130F;
+            MaKhachHang.HeaderText = "Mã khách hàng";
+            MaKhachHang.MinimumWidth = 6;
+            MaKhachHang.Name = "MaKhachHang";
+            MaKhachHang.ReadOnly = true;
+            MaKhachHang.Width = 138;
+            // 
+            // TenHopDong
+            // 
+            TenHopDong.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            TenHopDong.DataPropertyName = "TenHD";
+            TenHopDong.HeaderText = "Tên hợp đồng";
+            TenHopDong.MinimumWidth = 6;
+            TenHopDong.Name = "TenHopDong";
+            TenHopDong.ReadOnly = true;
+            TenHopDong.Width = 130;
+            // 
+            // LoaiDatMua
+            // 
+            LoaiDatMua.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            LoaiDatMua.DataPropertyName = "LoaiDat";
+            LoaiDatMua.HeaderText = "Loại đất";
+            LoaiDatMua.MinimumWidth = 6;
+            LoaiDatMua.Name = "LoaiDatMua";
+            LoaiDatMua.ReadOnly = true;
+            LoaiDatMua.Width = 92;
+            // 
+            // DienTichThuc
+            // 
+            DienTichThuc.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            DienTichThuc.DataPropertyName = "DienTich";
+            DienTichThuc.HeaderText = "Diện tích";
+            DienTichThuc.MinimumWidth = 6;
+            DienTichThuc.Name = "DienTichThuc";
+            DienTichThuc.ReadOnly = true;
+            DienTichThuc.Width = 97;
+            // 
+            // GiaTri
+            // 
+            GiaTri.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            GiaTri.DataPropertyName = "TriGia";
+            GiaTri.HeaderText = "Trị giá";
+            GiaTri.MinimumWidth = 6;
+            GiaTri.Name = "GiaTri";
+            GiaTri.ReadOnly = true;
+            GiaTri.Width = 79;
+            // 
+            // SoToView
+            // 
+            SoToView.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            SoToView.DataPropertyName = "SoTo";
+            SoToView.HeaderText = "Số tờ";
+            SoToView.MinimumWidth = 6;
+            SoToView.Name = "SoToView";
+            SoToView.ReadOnly = true;
+            SoToView.Width = 73;
+            // 
+            // SoThuaView
+            // 
+            SoThuaView.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            SoThuaView.DataPropertyName = "SoThua";
+            SoThuaView.HeaderText = "Số thửa";
+            SoThuaView.MinimumWidth = 6;
+            SoThuaView.Name = "SoThuaView";
+            SoThuaView.ReadOnly = true;
+            SoThuaView.Width = 89;
+            // 
+            // NgayLapHopDong
+            // 
+            NgayLapHopDong.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            NgayLapHopDong.DataPropertyName = "NgayLap";
+            NgayLapHopDong.FillWeight = 200F;
+            NgayLapHopDong.HeaderText = "Ngày lập ";
+            NgayLapHopDong.MinimumWidth = 6;
+            NgayLapHopDong.Name = "NgayLapHopDong";
+            NgayLapHopDong.ReadOnly = true;
+            NgayLapHopDong.Width = 102;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(btnXoaDS);
+            panel6.Controls.Add(label11);
+            panel6.Controls.Add(btnXuat);
+            panel6.Controls.Add(txtNhap);
+            panel6.Dock = DockStyle.Fill;
+            panel6.Location = new Point(3, 3);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(1494, 110);
+            panel6.TabIndex = 0;
+            // 
+            // btnXoaDS
+            // 
+            btnXoaDS.Location = new Point(904, 47);
+            btnXoaDS.Name = "btnXoaDS";
+            btnXoaDS.Size = new Size(94, 29);
+            btnXoaDS.TabIndex = 3;
+            btnXoaDS.Text = "Xoá";
+            btnXoaDS.UseVisualStyleBackColor = true;
+            btnXoaDS.Click += btnXoaDS_Click;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(324, 47);
+            label11.Name = "label11";
+            label11.Size = new Size(70, 20);
+            label11.TabIndex = 2;
+            label11.Text = "Tìm kiếm";
+            // 
+            // btnXuat
+            // 
+            btnXuat.Location = new Point(123, 32);
+            btnXuat.Name = "btnXuat";
+            btnXuat.Size = new Size(147, 51);
+            btnXuat.TabIndex = 1;
+            btnXuat.Text = "Xuất danh sách";
+            btnXuat.UseVisualStyleBackColor = true;
+            btnXuat.Click += btnXuat_Click;
+            // 
+            // txtNhap
+            // 
+            txtNhap.Location = new Point(442, 44);
+            txtNhap.Name = "txtNhap";
+            txtNhap.Size = new Size(234, 27);
+            txtNhap.TabIndex = 0;
+            txtNhap.TextChanged += txtNhap_TextChanged;
             // 
             // frmHopDong
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1623, 831);
-            Controls.Add(tableLayoutPanel1);
-            Controls.Add(label7);
-            Controls.Add(dtpNgayLap);
-            Controls.Add(btnTimKiem);
+            ClientSize = new Size(1514, 831);
+            Controls.Add(tabControl1);
             Name = "frmHopDong";
             Text = "Hợp đồng";
             Load += frmHopDong_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvDanhSachHD).EndInit();
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel5.ResumeLayout(false);
@@ -611,14 +849,18 @@
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvDanhSachHD).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage2.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvHopDongview).EndInit();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private DataGridView dgvDanhSachHD;
-        private Button btnTimKiem;
         private ComboBox cboHopDong;
         private Button btnXoa;
         private Button btnAdd;
@@ -637,8 +879,6 @@
         private TextBox txtDienTich;
         private Label label6;
         private TextBox txtTriGia;
-        private DateTimePicker dtpNgayLap;
-        private Label label7;
         private Label label8;
         private Label label9;
         private Label label5;
@@ -656,6 +896,28 @@
         private Panel panel3;
         private Panel panel2;
         private Panel panel5;
+        private Label label7;
+        private DateTimePicker dtpNgayLap;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Panel panel6;
+        private Button btnXuat;
+        private TextBox txtNhap;
+        private Label label11;
+        private DataGridView dgvHopDongview;
+        private DataGridViewTextBoxColumn MaHopDong;
+        private DataGridViewTextBoxColumn MaNhanVien;
+        private DataGridViewTextBoxColumn MaKhachHang;
+        private DataGridViewTextBoxColumn TenHopDong;
+        private DataGridViewTextBoxColumn LoaiDatMua;
+        private DataGridViewTextBoxColumn DienTichThuc;
+        private DataGridViewTextBoxColumn GiaTri;
+        private DataGridViewTextBoxColumn SoToView;
+        private DataGridViewTextBoxColumn SoThuaView;
+        private DataGridViewTextBoxColumn NgayLapHopDong;
+        private DataGridView dgvDanhSachHD;
         private DataGridViewTextBoxColumn MaHD;
         private DataGridViewTextBoxColumn MaNV;
         private DataGridViewTextBoxColumn MaKH;
@@ -666,5 +928,6 @@
         private DataGridViewTextBoxColumn SoTo;
         private DataGridViewTextBoxColumn SoThua;
         private DataGridViewTextBoxColumn NgayLap;
+        private Button btnXoaDS;
     }
 }

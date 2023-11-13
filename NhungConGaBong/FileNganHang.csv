@@ -1,11 +1,11 @@
-﻿ID,MaNH,TenNH
-1,NH01,MBBank
-2,NH02,Techcombank
-3,NH03,VietinBank
-4,NH04,Vietcombank
-5,NH05,BIDV
-6,NH06,Sacombank
-7,NH07,SeABank
-8,NH08,ShinhanBank
-9,NH09,Agribank
-10,NH10,WooriBank
+﻿ID,MaNH,TenNH,TenGD,NgayLap,NgaySua
+1,NH01,Quân đội,MBBank,10/11/2023,10/11/2023
+2,NH02,Kỹ Thương Việt Nam,Techcombank,10/11/2023,10/11/2023
+3,NH03,Công Thương Việt Nam,VietinBank,10/11/2023,10/11/2023
+4,NH04,Ngoại thương Việt Nam,Vietcombank,10/11/2023,10/11/2023
+5,NH05,Đầu tư và Phát triển Việt Nam,BIDV,10/11/2023,10/11/2023
+6,NH06,Sài Gòn Thương Tín,Sacombank,10/11/2023,10/11/2023
+7,NH07,Ngân hàng Đông Nam Á,SeABank,10/11/2023,10/11/2023
+8,NH08,Ngân hàng TNHH MTV Shinhan Việt Nam,ShinhanBank,10/11/2023,10/11/2023
+9,NH09,Ngân hàng Nông nghiệp và Phát triển Nông thôn VN,Agribank,10/11/2023,10/11/2023
+10,NH10,Ngân hàng Woori Bank tại Việt Nam,WooriBank,10/11/2023,10/11/2023

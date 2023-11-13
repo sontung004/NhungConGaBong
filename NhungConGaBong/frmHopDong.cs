@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,7 +23,10 @@ namespace NhungConGaBong
             InitializeComponent();
             dgvDanhSachHD.RowsDefaultCellStyle.BackColor = Color.MintCream;
             dgvDanhSachHD.AlternatingRowsDefaultCellStyle.BackColor = Color.OldLace;
+            dgvHopDongview.RowsDefaultCellStyle.BackColor = Color.AliceBlue;
+            dgvHopDongview.AlternatingRowsDefaultCellStyle.BackColor = Color.CornflowerBlue;
         }
+
         public void frmHopDong_Load(object sender, EventArgs e)
         {
             ComBoBoxDatNongNghiep();
@@ -42,8 +46,8 @@ namespace NhungConGaBong
             nvList = NhanVien.ReadFromFile(fileName);
             cboNhanVien.DataSource = nvList;
             cboNhanVien.DisplayMember = "MaNV";
-            hdList.Clear();
 
+            dtpNgayLap.Value = DateTime.Now;
         }
         void ComBoBoxChonTenHD()
         {
@@ -93,20 +97,131 @@ namespace NhungConGaBong
             cbbChuaSuDung.Items.Add("3. Núi đá không có rừng cây");
 
         }
+        private string GenerateRandomContractCode()
+        {
+            Random random = new Random();
+            int randomCode = random.Next(1, 100000); // Tạo số ngẫu nhiên từ 1 đến 999.
+            return "HD" + randomCode.ToString("0");
+        }
+        bool KiemTra()
+        {
+            if (cboHopDong.SelectedIndex <= -1)
+            {
+                MessageBox.Show("Tên hợp đồng bạn không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboHopDong.Focus();
+                return false;
+            }
+            if (txtDienTich.Text == "")
+            {
+                MessageBox.Show("Hãy nhập diện tích của thữa đất hợp đồng .", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDienTich.Focus();
+                return false;
+            }
+            if (txtTriGia.Text == "")
+            {
+                MessageBox.Show("Hãy nhập trị giá của thửa đất .", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTriGia.Focus();
+                return false;
+            }
+            if (txtSoTo.Text == "")
+            {
+                DialogResult result = MessageBox.Show("Số Tờ không được để trống. Bạn có muốn tiếp tục mà không điền Số Tờ?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No)
+                    if (result == DialogResult.No)
+                    {
+                        txtSoTo.Focus();
+                        return false;
+                    }
+                    else
+                    {
+                    }
+            }
+            if (txtSoThua.Text == "")
+            {
+                DialogResult result = MessageBox.Show("Số ThửaB không được để trống. Bạn có muốn tiếp tục mà không điền Số Thửa?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.No)
+                    if (result == DialogResult.No)
+                    {
+                        txtSoThua.Focus();
+                        return false;
+                    }
+                    else
+                    {
+                        txtSoThua.Text = "0";
+                    }
+
+
+            }
+            if (rdbDatNongNghiep.Checked == true)
+            {
+                if (cbbNongNghiep.SelectedIndex < 0)
+                {
+                    MessageBox.Show(" Loại đất Không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cbbNongNghiep.Focus();
+                    return false;
+                }
+            }
+            else if (rdbDatPhiNpngNghiep.Checked == true)
+            {
+                if (cbbPhiNongNghiep.SelectedIndex < 0)
+                {
+                    MessageBox.Show(" Loại đất Không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cbbPhiNongNghiep.Focus();
+                    return false;
+                }
+            }
+            else if (rdbDatNongNghiep.Checked == true)
+            {
+                if (cbbChuaSuDung.SelectedIndex < 0)
+                {
+                    MessageBox.Show(" Loại đất Không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cbbChuaSuDung.Focus();
+                    return false;
+                }
+            }
+
+            return true;// Không có trường nào để trống
+
+        }
         public void btnAdd_Click(object sender, EventArgs e)
         {
+            if (!KiemTra())
+            {
+                return;
+            }
             dgvDanhSachHD.AutoGenerateColumns = false;
+            string randomContractCode = GenerateRandomContractCode();
+            txtMaHD.Text = randomContractCode;
 
+            string Ma = txtMaHD.Text.Trim().ToUpper();
+
+            HopDong item = hdList.Find(x => x.MaHD.ToUpper().Equals(Ma));
+            if (item != null)
+            {
+                int index = hdList.IndexOf(item);
+                MessageBox.Show($"Mã hợp đồng {Ma} đã tồn tại trong List ở vị trí {index}\n   Bạn vui lòng nhập mã hợp đồng khác", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             HopDong hd = new HopDong();
-            hd.MaHD = txtMaHD.Text;
-            hd.TenHD = cboHopDong.Text;
-            if (rdbDatNongNghiep.Checked == true)
-                hd.LoaiDat = cbbPhiNongNghiep.Text;
 
-            if (rdbDatPhiNpngNghiep.Checked == true)
+
+            hd.MaHD = txtMaHD.Text;
+
+            hd.TenHD = cboHopDong.Text;
+
+            if (rdbDatNongNghiep.Checked)
+            {
+                hd.LoaiDat = cbbNongNghiep.Text;
+            }
+            else if (rdbDatPhiNpngNghiep.Checked)
+            {
                 hd.LoaiDat = cbbPhiNongNghiep.Text;
-            if (rdbDatChuaSuDung.Checked == true)
+            }
+            else if (rdbDatChuaSuDung.Checked)
+            {
                 hd.LoaiDat = cbbChuaSuDung.Text;
+            }
+
             hd.MaNV = cboNhanVien.Text;
             hd.MaKH = cboKhachHang.Text;
             hd.DienTich = txtDienTich.Text;
@@ -118,6 +233,10 @@ namespace NhungConGaBong
             hdList.Add(hd);
             dgvDanhSachHD.DataSource = hdList;
             dgvDanhSachHD.AutoGenerateColumns = true;
+
+
+            int rowIndex = dgvDanhSachHD.RowCount - 1;
+            dgvDanhSachHD.Rows[rowIndex].Selected = true;
         }
 
 
@@ -126,6 +245,10 @@ namespace NhungConGaBong
             cbbChuaSuDung.Enabled = true;
             cbbNongNghiep.Enabled = false;
             cbbPhiNongNghiep.Enabled = false;
+            cbbNongNghiep.SelectedIndex = -1;
+            cbbPhiNongNghiep.SelectedIndex = -1;
+
+
         }
 
         private void rdbDatNongNghiep_CheckedChanged(object sender, EventArgs e)
@@ -133,6 +256,9 @@ namespace NhungConGaBong
             cbbNongNghiep.Enabled = true;
             cbbChuaSuDung.Enabled = false;
             cbbPhiNongNghiep.Enabled = false;
+            cbbChuaSuDung.SelectedIndex = -1;
+            cbbPhiNongNghiep.SelectedIndex = -1;
+
         }
 
         private void rdbDatPhiNpngNghiep_CheckedChanged(object sender, EventArgs e)
@@ -140,6 +266,9 @@ namespace NhungConGaBong
             cbbPhiNongNghiep.Enabled = true;
             cbbChuaSuDung.Enabled = false;
             cbbNongNghiep.Enabled = false;
+            cbbChuaSuDung.SelectedIndex = -1;
+            cbbNongNghiep.SelectedIndex = -1;
+
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
@@ -156,74 +285,95 @@ namespace NhungConGaBong
             if (selectedIndex >= 0)
             {
                 DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xoá khách hàng này?", "Xác nhận xoá", MessageBoxButtons.YesNo, MessageBoxIcon.Warning); hdList.RemoveAt(selectedIndex);
-                dgvDanhSachHD.DataSource = null;
-                dgvDanhSachHD.DataSource = hdList;
-                dgvDanhSachHD.AutoGenerateColumns = true;
+                if (result == DialogResult.Yes)
+                {
+                    hdList.RemoveAt(selectedIndex);
+                    string _Path = AppDomain.CurrentDomain.BaseDirectory;
+                    string fileName = _Path + @"\FileHopDong.csv";
+                    HopDong.SaveToFile(hdList, fileName, false);
+                    dgvDanhSachHD.DataSource = null;
+                    btnXuat.PerformClick();
+                    //dgvDanhSachHD.DataSource = hdList;
+                    dgvDanhSachHD.AutoGenerateColumns = true;
+                }
+
             }
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            dgvDanhSachHD.AutoGenerateColumns = false;
-            string MaKH = cboKhachHang.Text;
-            string MaNV = cboNhanVien.Text;
-            string MaHD = txtMaHD.Text;
-            string TenHD = cboHopDong.Text;
-            string LoaiDat = "";
-            if (rdbDatNongNghiep.Checked == true)
-                LoaiDat = cbbPhiNongNghiep.Text;
-            if (rdbDatPhiNpngNghiep.Checked == true)
-                LoaiDat = cbbPhiNongNghiep.Text;
-            if (rdbDatChuaSuDung.Checked == true)
-                LoaiDat = cbbChuaSuDung.Text;
-            string DienTich = txtDienTich.Text;
-            int SoTo = Convert.ToInt32(txtSoTo.Text);
-            int SoThua = Convert.ToInt32(txtSoThua.Text);
-            string TriGia = txtTriGia.Text;
-            DateTime NgayLap;
-            NgayLap = DateTime.Now;
-            HopDong hopDong = hdList.FirstOrDefault(hd => hd.MaHD == MaHD);
-            if (hopDong != null)
-            {
-                hopDong.MaHD = MaHD;
-                hopDong.MaNV = MaNV;
-                hopDong.MaKH = MaKH;
-                hopDong.LoaiDat = LoaiDat;
-                hopDong.TenHD = TenHD;
-                hopDong.DienTich = DienTich;
-                hopDong.SoTo = SoTo;
-                hopDong.SoThua = SoThua;
-                hopDong.TriGia = TriGia;
-                hopDong.NgayLap = NgayLap;
+            DialogResult result = MessageBox.Show($"Bạn sửa nội dung của hợp đồng {cboHopDong.Text}? (Yes/No)", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result != DialogResult.Yes) { return; }
 
-                dgvDanhSachHD.DataSource = null;
+            int index = hdList.FindIndex(a => a.MaHD == txtMaHD.Text);
+            HopDong hopDong = hdList.FirstOrDefault(hd => hd.MaHD == txtMaHD.Text);
+            if (index >= 0)
+            {
+                dgvDanhSachHD.AutoGenerateColumns = false;
+                hdList[index].TenHD = cboHopDong.Text;
+
+                if (rdbDatNongNghiep.Checked == true)
+                    hdList[index].LoaiDat = cbbNongNghiep.Text;
+                else if (rdbDatPhiNpngNghiep.Checked == true)
+                    hdList[index].LoaiDat = cbbPhiNongNghiep.Text;
+                else if (rdbDatChuaSuDung.Checked == true)
+                    hdList[index].LoaiDat = cbbChuaSuDung.Text;
+                hdList[index].DienTich = txtDienTich.Text;
+                hdList[index].TriGia = txtTriGia.Text;
+                hdList[index].SoThua = Convert.ToInt32(txtSoThua.Text);
+                hdList[index].SoTo = Convert.ToInt32(txtSoTo.Text);
+                hdList[index].NgayLap = Convert.ToDateTime(dtpNgayLap.Value);
                 dgvDanhSachHD.DataSource = hdList;
-                dgvDanhSachHD.AutoGenerateColumns = true;
+
+                dgvDanhSachHD.Rows[index].Selected = true;
 
             }
         }
 
         private void dgvDanhSachHD_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.RowIndex < dgvDanhSachHD.Rows.Count)
+
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 DataGridViewRow selectedRow = dgvDanhSachHD.Rows[e.RowIndex];
 
                 txtMaHD.Text = selectedRow.Cells["MaHD"].Value.ToString();
-                cboNhanVien.DisplayMember = selectedRow.Cells["MaNV"].Value.ToString();
-                cboKhachHang.DisplayMember = selectedRow.Cells["MaKH"].Value.ToString();
-                cboHopDong.SelectedValue = selectedRow.Cells["TenHD"].Value.ToString();
+                cboNhanVien.Text = selectedRow.Cells["MaNV"].Value.ToString();
+                cboKhachHang.Text = selectedRow.Cells["MaKH"].Value.ToString();
+                cboHopDong.Text = selectedRow.Cells["TenHD"].Value.ToString();
                 txtDienTich.Text = selectedRow.Cells["DienTich"].Value.ToString();
                 txtSoTo.Text = selectedRow.Cells["SoTo"].Value.ToString();
                 txtSoThua.Text = selectedRow.Cells["SoThua"].Value.ToString();
                 txtTriGia.Text = selectedRow.Cells["TriGia"].Value.ToString();
                 dtpNgayLap.Text = selectedRow.Cells["NgayLap"].Value.ToString();
-                if (rdbDatNongNghiep.Checked == true)
-                    cbbPhiNongNghiep.SelectedValue = selectedRow.Cells["LoaiDat"].Value.ToString();
-                if (rdbDatPhiNpngNghiep.Checked == true)
-                    cbbPhiNongNghiep.SelectedValue = selectedRow.Cells["LoaiDat"].Value.ToString();
-                if (rdbDatChuaSuDung.Checked == true)
-                    cbbChuaSuDung.SelectedValue = selectedRow.Cells["LoaiDat"].Value.ToString();
+
+
+                string loaiDatValue = selectedRow.Cells["LoaiDat"].Value.ToString();
+
+                // Cập nhật giá trị của combobox theo cột "LoaiDat"
+                if (cbbNongNghiep.Items.Contains(loaiDatValue))
+                {
+                    rdbDatNongNghiep.Checked = true;
+
+                    cbbNongNghiep.Text = loaiDatValue;
+
+                }
+                else if (cbbPhiNongNghiep.Items.Contains(loaiDatValue))
+                {
+                    rdbDatPhiNpngNghiep.Checked = true;
+                    cbbPhiNongNghiep.Text = loaiDatValue;
+                    rdbDatPhiNpngNghiep.Checked = true;
+                }
+                else if (cbbChuaSuDung.Items.Contains(loaiDatValue))
+                {
+                    rdbDatChuaSuDung.Checked = true;
+                    cbbChuaSuDung.Text = loaiDatValue;
+
+                }
+                else
+                {
+                    MessageBox.Show("Giá trị không khớp với các lựa chọn có sẵn trong combobox.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
 
         }
@@ -250,6 +400,81 @@ namespace NhungConGaBong
             }
             else
                 lblNhanVien.Text = "";
+        }
+
+        private void btnXuat_Click(object sender, EventArgs e)
+        {
+            dgvHopDongview.AutoGenerateColumns = false;
+            string _Path = AppDomain.CurrentDomain.BaseDirectory;
+            string fileName = _Path + @"\FileHopDong.csv";
+            hdList = HopDong.ReadFromFile(fileName);
+
+            dgvHopDongview.DataSource = hdList;
+            dgvHopDongview.AutoGenerateColumns = true;
+        }
+        private void SearchAll(string text)
+        {
+            text = text.ToUpper();
+            var filtered = from hd in hdList
+                           where hd.MaHD.ToUpper().Contains(text) //|| hd.MaNV.ToUpper().Contains(text) || hd.MaKH.ToUpper().Contains(text)
+                           select hd;
+            dgvHopDongview.DataSource = filtered.ToList();
+
+        }
+        private void txtNhap_TextChanged(object sender, EventArgs e)
+        {
+            string text = txtNhap.Text.Trim();
+            SearchAll(text);
+        }
+
+        private void dgvDanhSachHD_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            SacDataGridView.SetRowNumber(sender, e);
+        }
+
+        private void txtDienTich_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Input.SoThuc(txtDienTich, e);
+        }
+
+        private void txtTriGia_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Input.SoNguyen(txtTriGia, e);
+        }
+
+        private void txtSoTo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Input.SoNguyen(txtSoTo, e);
+        }
+
+        private void txtSoThua_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Input.SoNguyen(txtSoThua, e);
+        }
+
+        private void btnXoaDS_Click(object sender, EventArgs e)
+        {
+            dgvHopDongview.AutoGenerateColumns = false;
+            int selectedIndex = dgvHopDongview.SelectedCells[0].RowIndex;
+            if (selectedIndex >= 0)
+            {
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xoá hợp đồng này?", "Xác nhận xoá", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    hdList.RemoveAt(selectedIndex);
+                    string _Path = AppDomain.CurrentDomain.BaseDirectory;
+                    string fileName = _Path + @"\FileHopDong.csv";
+                    HopDong.SaveToFile(hdList, fileName, false);
+                    dgvHopDongview.DataSource = null;
+                    btnXuat.PerformClick();
+                    dgvHopDongview.AutoGenerateColumns = true;
+                }
+            }
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

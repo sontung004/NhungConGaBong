@@ -18,7 +18,7 @@ namespace NhungConGaBong
         List<KhachHang> khachhangList = new List<KhachHang>();
         List<KhachHang> khList = new List<KhachHang>();
         List<NganHang> nganhangList = new List<NganHang>();
-
+        int maxMakh;
         public frmKhachHang()
         {
             InitializeComponent();
@@ -34,11 +34,17 @@ namespace NhungConGaBong
             string fileName = path + @"\FileNganHang.csv";
             nganhangList = NganHang.ReadFromFile(fileName);
             cboNH.DataSource = nganhangList;
-            cboNH.DisplayMember = "TenNH";
+            cboNH.DisplayMember = "TenGD";
             cboNH.ValueMember = "ID";
             cboNH.SelectedIndex = -1;
+
+            fileName = path + @"\FileKhachHang.csv";
+            khachhangList = KhachHang.ReadFromFile(fileName);
+
             khList.Clear();
             gpbThongTin.Hide();
+            maxMakh = khachhangList.Max(kh => int.Parse(kh.MaKH.Substring(2)));
+            txtMaKH.Text = "KH" + (maxMakh + 1).ToString("D2");
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -46,7 +52,7 @@ namespace NhungConGaBong
             dgvKhachHang.AutoGenerateColumns = false;
 
             KhachHang kh = new KhachHang();
-            txtMaKH.Text = kh.MaKH;
+            kh.MaKH = txtMaKH.Text;
             kh.HoDemKH = txtHoDem.Text;
             kh.TenKH = txtTen.Text;
             kh.DienThoai = txtSDT.Text;
@@ -57,12 +63,14 @@ namespace NhungConGaBong
             kh.NganHangID = Convert.ToInt32(cboNH.SelectedValue);
             khList.Add(kh);
 
+            maxMakh++;
+            txtMaKH.Text = "KH" + (maxMakh + 1).ToString("D2");
+
             dgvKhachHang.DataSource = null;
             dgvKhachHang.DataSource = khList;
             dgvKhachHang.AutoGenerateColumns = true;
-            btnHienSua.Enabled = true;
-            btnLuu.Enabled = true;
 
+            btnLuu.Enabled = true;
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
@@ -122,8 +130,10 @@ namespace NhungConGaBong
         {
             if (e.RowIndex >= 0 && e.RowIndex < dgvKhachHang.Rows.Count)
             {
+                btnHienSua.Enabled = true;
+                btnXoa.Enabled = true;
                 DataGridViewRow selectedRow = dgvKhachHang.Rows[e.RowIndex];
-                txtMaKH.Text = selectedRow.Cells["MaKH"].Value.ToString();
+                txtMaKH.Text = selectedRow.Cells["MaKH"].Value.ToString()!;
                 txtHoDem.Text = selectedRow.Cells["HoDem"].Value.ToString();
                 txtTen.Text = selectedRow.Cells["tenKH"].Value.ToString();
                 txtSDT.Text = selectedRow.Cells["Dienthoai"].Value.ToString();
@@ -208,6 +218,20 @@ namespace NhungConGaBong
                     dgvXuatKH.AutoGenerateColumns = true;
                 }
             }
+        }
+
+        private void btnThemNH_Click(object sender, EventArgs e)
+        {
+            var frm = new frmNganHang();
+            frm.ShowDialog();
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            string fileName = path + @"\FileNganHang.csv";
+            nganhangList = NganHang.ReadFromFile(fileName);
+            cboNH.DataSource = nganhangList;
+            cboNH.DisplayMember = "TenGD";
+            cboNH.ValueMember = "ID";
+            cboNH.SelectedIndex = -1;
+            gpbThongTin.Visible = true;
         }
     }
 }

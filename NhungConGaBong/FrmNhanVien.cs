@@ -1,6 +1,8 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace NhungConGaBong
 {
@@ -13,6 +15,10 @@ namespace NhungConGaBong
         public FrmNhanVien()
         {
             InitializeComponent();
+            ////http://www.flounder.com/csharp_color_table.htm
+            // MÀU NỀN CÁCH DÒNG  .
+            dgvNhanVien.RowsDefaultCellStyle.BackColor = Color.MintCream;
+            dgvNhanVien.AlternatingRowsDefaultCellStyle.BackColor = Color.OldLace;
             dgvNhanVienView.AutoGenerateColumns = false;
         }
 
@@ -21,6 +27,8 @@ namespace NhungConGaBong
             string path = AppDomain.CurrentDomain.BaseDirectory;
             string fileName = path + @"\FileNhanVien.csv";
             nvList = NhanVien.ReadFromFile(fileName);
+
+            dtpNgaySinh.Value = DateTime.Now;
 
             //Tim va hien thi ma nv moi truoc khi nhap
             string maxMaNV = nvList.Select(nv => nv.MaNV)
@@ -35,32 +43,59 @@ namespace NhungConGaBong
             }
 
         }
+        public bool KiemTra()
+        {
+            if (txtHoDem.Text == "")
+            {
+                MessageBox.Show("Họ đệm không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtHoDem.Focus();
+                return false;
+            }
+            if (txtTen.Text == "")
+            {
+                MessageBox.Show("Tên không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTen.Focus();
+                return false;
+            }
+            if (cboGioiTinh.SelectedIndex < 0)
+            {
+                MessageBox.Show("Giới tính không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboGioiTinh.Focus();
+                return false;
+            }
+            if (txtDiaChi.Text == "")
+            {
+                MessageBox.Show("Địa chỉ không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDiaChi.Focus();
+                return false;
+            }
+            if (txtSDT.Text == "")
+            {
+                MessageBox.Show("Số điện thoại không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSDT.Focus();
+                return false;
+            }
+
+            // Thêm các kiểm tra cho các trường thông tin khác nếu cần
+
+            return true; // Không có trường nào để trống
+        }
+
         private void btnAdd_Click_1(object sender, EventArgs e)
         {
-            //dgvNhanVien.AutoGenerateColumns = false;
-            //NhanVien nv = new NhanVien();
-
-            //nv.MaNV = txtMaNV.Text;
-            //nv.HoDem = txtHoDem.Text;
-            //nv.Ten = txtTen.Text;
-            //nv.NgaySinh = dtpNgaySinh.Text;
-            //nv.GioiTinh = cboGioiTinh.Text;
-            //nv.DiaChi = txtDiaChi.Text;
-            //nv.SDT = txtSDT.Text;
-
-            //nvList.Add(nv);
-
-            //dgvNhanVien.DataSource = nvList;
-            //dgvNhanVien.AutoGenerateColumns = true;
+            if (!KiemTra())
+            {
+                return; // Không thực hiện thêm nếu có trường thông tin trống
+            }
             dgvNhanVien.AutoGenerateColumns = false;
             NhanVien nv = new NhanVien();
 
             string newMaNV = txtMaNV.Text;
 
             nv.MaNV = newMaNV;
-            nv.HoDem = txtHoDem.Text;
+            nv.HoDem = txtHoDem.Text.Trim();
             nv.Ten = txtTen.Text;
-            nv.NgaySinh = dtpNgaySinh.Text;
+            nv.NgaySinh = DateTime.Now.Date;
             nv.GioiTinh = cboGioiTinh.Text;
             nv.DiaChi = txtDiaChi.Text;
             nv.SDT = txtSDT.Text;
@@ -74,6 +109,9 @@ namespace NhungConGaBong
 
             dgvNhanVien.DataSource = nvList;
             dgvNhanVien.AutoGenerateColumns = true;
+
+            int rowIndex = dgvNhanVien.RowCount - 1;
+            dgvNhanVien.Rows[rowIndex].Selected = true;
         }
 
         private void btnSaveToFile_Click_1(object sender, EventArgs e)
@@ -96,97 +134,54 @@ namespace NhungConGaBong
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            List<NhanVien> nvDelete = new List<NhanVien>();
+            DialogResult result = MessageBox.Show($"Bạn muốn xoá nhân viên {txtTen.Text}? (Yes/No)", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result != DialogResult.Yes) return;
 
-            foreach (DataGridViewRow row in dgvNhanVien.Rows)
+            // Tìm Index - Vị trí của ID trong List
+            int index = nvList.FindIndex(a => a.MaNV == txtMaNV.Text);
+            if (index >= 0)
             {
-                if (row.Cells["Xoa"].Value != null && (bool)row.Cells["Xoa"].Value == true)
-                {
-                    string maNV = row.Cells["MaNV"].Value.ToString();
-                    NhanVien NhanvienDelete = nvList.FirstOrDefault(nv => nv.MaNV == maNV);
+                dgvNhanVien.AutoGenerateColumns = false;
 
-                    if (NhanvienDelete != null)
-                    {
-                        nvDelete.Add(NhanvienDelete);
-                    }
-                }
+                nvList.RemoveAt(index);
+
+                dgvNhanVien.DataSource = nvList;
+                dgvNhanVien.AutoGenerateColumns = true;
             }
 
-            foreach (var Nhanvien in nvDelete)
-            {
-                nvList.Remove(Nhanvien);
-            }
-
-            dgvNhanVien.DataSource = null;
-            dgvNhanVien.DataSource = nvList;
-
-            string _Path = AppDomain.CurrentDomain.BaseDirectory;
-            string fileName = _Path + @"\FileNhanVien.csv";
-            NhanVien.SaveToFile(nvList, fileName, false);
-            //if (index >= 0)
-            //{
-
-            //    nvList[index].MaNV = txtMaNV.Text;
-            //    nvList[index].HoDem = txtHoDem.Text;
-            //    nvList[index].Ten = txtTen.Text;
-            //    nvList[index].GioiTinh = cboGioiTinh.Text;
-            //    nvList[index].NgaySinh = dtpNgaySinh.Text;
-            //    nvList[index].DiaChi = txtDiaChi.Text;
-            //    nvList[index].SDT = txtSDT.Text;
-            //    nvList.Sort((a, b) => a.MaNV.CompareTo(b.MaNV));
-            //    dgvNhanVien.DataSource = null;
-            //    dgvNhanVien.DataSource = nvList;
-            //}
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (dgvNhanVien.SelectedRows.Count > 0)
+            DialogResult result = MessageBox.Show($"Bạn muốn sửa nội dung của nhân viên {txtMaNV.Text}? (Yes/No)", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result != DialogResult.Yes)
+                return;
+
+            int index = nvList.FindIndex(a => a.MaNV == txtMaNV.Text);
+            if (index >= 0)
             {
-                DataGridViewRow selectedRow = dgvNhanVien.SelectedRows[0];
+                dgvNhanVien.AutoGenerateColumns = false;
 
-                txtMaNV.Text = selectedRow.Cells["MaNV"].Value.ToString();
-                txtHoDem.Text = selectedRow.Cells["HoDem"].Value.ToString();
-                txtTen.Text = selectedRow.Cells["Ten"].Value.ToString();
-                dtpNgaySinh.Text = selectedRow.Cells["NgaySinh"].Value.ToString();
-                cboGioiTinh.Text = selectedRow.Cells["GioiTinh"].Value.ToString();
-                txtDiaChi.Text = selectedRow.Cells["DiaChi"].Value.ToString();
-                txtSDT.Text = selectedRow.Cells["SDT"].Value.ToString();
-            }
-        }
+                nvList[index].HoDem = txtHoDem.Text;
+                nvList[index].Ten = txtTen.Text;
 
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            if (dgvNhanVien.SelectedRows.Count > 0)
-            {
-                DataGridViewRow selectedRow = dgvNhanVien.SelectedRows[0];
-
-                string selectedMaNV = selectedRow.Cells["MaNV"].Value.ToString();
-
-                // Find the NhanVien object in the list with the same MaNV
-                NhanVien nhanVienToUpdate = nvList.FirstOrDefault(nv => nv.MaNV == selectedMaNV);
-
-                if (nhanVienToUpdate != null)
+                DateTime newNgaySinh;
+                if (DateTime.TryParse(dtpNgaySinh.Text, out newNgaySinh))
                 {
-                    // Update the NhanVien object with the data from the textboxes
-                    nhanVienToUpdate.MaNV = txtMaNV.Text;
-                    nhanVienToUpdate.HoDem = txtHoDem.Text;
-                    nhanVienToUpdate.Ten = txtTen.Text;
-                    nhanVienToUpdate.NgaySinh = dtpNgaySinh.Text;
-                    nhanVienToUpdate.GioiTinh = cboGioiTinh.Text;
-                    nhanVienToUpdate.DiaChi = txtDiaChi.Text;
-                    nhanVienToUpdate.SDT = txtSDT.Text;
-
-                    // Refresh the DataGridView to reflect the changes
-                    dgvNhanVien.Refresh();
-
-                    // Optionally, save the updated data to the CSV file if needed
-                    string _Path = AppDomain.CurrentDomain.BaseDirectory;
-                    string fileName = _Path + @"\FileNhanVien.csv";
-                    NhanVien.SaveToFile(nvList, fileName, false);
+                    nvList[index].NgaySinh = newNgaySinh;
                 }
+                nvList[index].GioiTinh = cboGioiTinh.Text;
+                nvList[index].DiaChi = txtDiaChi.Text;
+                nvList[index].SDT = txtSDT.Text;
+
+                dgvNhanVien.DataSource = nvList;
+
+                dgvNhanVien.AutoGenerateColumns = true;
+                dgvNhanVien.Rows[index].Selected = true;
             }
         }
+
+
 
         private void btnXuat_Click(object sender, EventArgs e)
         {
@@ -196,11 +191,11 @@ namespace NhungConGaBong
 
             //dgvNhanVienView.AutoGenerateColumns = false;
             //dgvNhanVienView.DataSource = nhanVienList;
-            //dgvNhanVienView.Columns["M� nh�n vi�n"].DataPropertyName = "MaNV";
+            //dgvNhanVienView.Columns["Mã nhân viên"].DataPropertyName = "MaNV";
             //dgvNhanVienView.Columns["H? ??m"].DataPropertyName = "HoDem";
-            //dgvNhanVienView.Columns["T�n"].DataPropertyName = "Ten";
-            //dgvNhanVienView.Columns["Ng�y sinh"].DataPropertyName = "NgaySinh";
-            //dgvNhanVienView.Columns["Gi?i t�nh"].DataPropertyName = "GioiTinh";
+            //dgvNhanVienView.Columns["Tên"].DataPropertyName = "Ten";
+            //dgvNhanVienView.Columns["Ngày sinh"].DataPropertyName = "NgaySinh";
+            //dgvNhanVienView.Columns["Gi?i tính"].DataPropertyName = "GioiTinh";
             //dgvNhanVienView.Columns["??a ch?"].DataPropertyName = "DiaChi";
             //dgvNhanVienView.Columns["S? ?i?n tho?i"].DataPropertyName = "SDT";
             dgvNhanVienView.DataSource = nhanVienList;
@@ -220,7 +215,7 @@ namespace NhungConGaBong
             text = text.ToUpper();
             var filtered = from n in nvList
                            where n.MaNV.ToUpper().Contains(text) || n.HoDem.ToUpper().Contains(text) || n.Ten.ToUpper().Contains(text) ||
-                           n.SDT.ToUpper().Contains(text) || n.NgaySinh.ToUpper().Contains(text) || n.GioiTinh.ToUpper().Contains(text) || n.DiaChi.ToUpper().Contains(text)
+                           n.SDT.ToUpper().Contains(text) || n.GioiTinh.ToUpper().Contains(text) || n.DiaChi.ToUpper().Contains(text)
                            select n;
             dgvNhanVienView.DataSource = filtered.ToList();
 
@@ -229,6 +224,44 @@ namespace NhungConGaBong
         {
             string text = txtFind.Text.Trim();
             FilterNhanVienLinQ2(text);
+        }
+
+        private void dgvNhanVien_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            SacDataGridView.SetRowNumber(sender, e);
+        }
+
+        private void dgvNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                btnDelete.Enabled = true;
+                btnEdit.Enabled = true;
+
+
+                txtMaNV.Text = dgvNhanVien.Rows[e.RowIndex].Cells["MaNV"].Value.ToString()!;
+                txtHoDem.Text = dgvNhanVien.Rows[e.RowIndex].Cells["HoDem"].Value.ToString()!;
+                txtTen.Text = dgvNhanVien.Rows[e.RowIndex].Cells["Ten"].Value.ToString()!;
+                dtpNgaySinh.Value = Convert.ToDateTime(dgvNhanVien.Rows[e.RowIndex].Cells["NgaySinh"].Value);
+                cboGioiTinh.Text = dgvNhanVien.Rows[e.RowIndex].Cells["GioiTinh"].Value.ToString()!;
+                txtDiaChi.Text = dgvNhanVien.Rows[e.RowIndex].Cells["DiaChi"].Value.ToString()!;
+                txtSDT.Text = dgvNhanVien.Rows[e.RowIndex].Cells["SDT"].Value.ToString()!;
+            }
+        }
+
+        private void txtHoDem_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Input.ChuCai(txtHoDem, e);
+        }
+
+        private void txtTen_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Input.ChuCai(txtTen, e);
+        }
+
+        private void txtSDT_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Input.SoNguyen(txtSDT, e);
         }
     }
 

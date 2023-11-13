@@ -2,6 +2,7 @@
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +15,13 @@ namespace NhungConGaBong
         public string HoDem { get; set; }
         public string Ten { get; set; }
         public string GioiTinh { get; set; }
-        public string NgaySinh { get; set; }    
+        public DateTime NgaySinh { get; set; }    
         public string DiaChi { get; set; }
         public string SDT { get; set; }
 
         public NhanVien()
         {
-            MaNV = HoDem = Ten = GioiTinh = NgaySinh = DiaChi = SDT = "";
+            
         }
         public NhanVien this[List<NhanVien> nvList, int index]
         {
@@ -50,7 +51,12 @@ namespace NhungConGaBong
             this.MaNV = values[0];
             this.HoDem = values[1];
             this.Ten = values[2];
-            this.NgaySinh = values[3];
+
+            var cultureInfoVietName = new CultureInfo("vi-VN");
+
+            string dateString = values[3];
+            this.NgaySinh = DateTime.ParseExact(dateString, "dd/MM/yyyy", cultureInfoVietName);
+
             this.GioiTinh = values[4];
             this.DiaChi = values[5];
             this.SDT = values[6];
@@ -58,7 +64,6 @@ namespace NhungConGaBong
 
         public static int SaveToFile(List<NhanVien> nvList, string fileName, bool insert = false)
         {
-           
             try
             {
                 using (StreamWriter sw = new StreamWriter(fileName, append: insert))
@@ -74,7 +79,7 @@ namespace NhungConGaBong
                         line += "," + nv.MaNV;
                         line += "," + nv.HoDem;
                         line += "," + nv.Ten;
-                        line += "," + nv.NgaySinh;
+                        line += "," + nv.NgaySinh.ToString("dd/MM/yyyy");
                         line += "," + nv.GioiTinh;
                         line += "," + nv.DiaChi;
                         line += "," + nv.SDT;
